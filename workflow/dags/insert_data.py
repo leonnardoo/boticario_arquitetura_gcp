@@ -3,7 +3,8 @@ from airflow.contrib.operators.gcs_to_bq import GoogleCloudStorageToBigQueryOper
 from airflow import DAG
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH
-from sql.schema import base_anos
+
+schema = "sql/schema/base_anos.json"
 
 
 default_args = {
@@ -36,7 +37,7 @@ with DAG(
         bucket="raw_data_boticario",
         source_objects=["Base_*.xlsx"],
         destination_project_dataset_table="refined.base_anos",
-        schema_fields=f"{{% include '{base_anos}' %}}",
+        schema_fields=f"{{% include '{schema}' %}}",
         write_disposition='WRITE_TRUNCATE',
     )
 
