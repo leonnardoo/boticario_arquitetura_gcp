@@ -6,4 +6,4 @@ steps:
     - '-d'
     - '-r'
     - 'dags'
-    - 'gs://${_GCS_BUCKET}/dags'
+    - 'gs://${BUCKET_AIRFLOW_DAG_PRD}/dags'
