@@ -1,6 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/gsutil
-serviceAccount: '$SA_GCP'
+#serviceAccount: '$SA_GCP'
   args:
     - '-m'
     - 'rsync'
