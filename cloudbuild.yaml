@@ -5,7 +5,7 @@ steps:
     - 'rsync'
     - '-d'
     - '-r'
-    - 'dags'
+    - 'workflow'
     - 'gs://${_GCS_BUCKET}/dags'
 options:
   logging: CLOUD_LOGGING_ONLY
