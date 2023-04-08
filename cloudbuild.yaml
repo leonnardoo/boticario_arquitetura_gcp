@@ -1,10 +1,10 @@
 steps:
 - name: gcr.io/cloud-builders/gsutil
-#serviceAccount: '$SA_GCP'
+serviceAccount: '${_SA_GCP}'
   args:
     - '-m'
     - 'rsync'
     - '-d'
     - '-r'
     - 'dags'
-    - 'gs://$BUCKET_AIRFLOW_DAG_PRD/dags'
+    - 'gs://${_GCS_BUCKET}/dags'
