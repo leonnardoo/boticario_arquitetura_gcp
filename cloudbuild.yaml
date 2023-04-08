@@ -7,4 +7,3 @@ steps:
     - '-r'
     - 'dags'
     - 'gs://${_GCS_BUCKET}/dags'
-serviceAccount: 'gs://${_GCS_BUCKET}/data/${_SA_GCP}'
