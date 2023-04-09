@@ -1,4 +1,4 @@
-from airflow.providers.google.cloud.operators.bigquery import BigQueryValueCheckOperator, BigQueryInsertJobOperator, BigQueryUpdateTableSchemaOperator
+from airflow.providers.google.cloud.operators.bigquery import BigQueryValueCheckOperator, BigQueryInsertJobOperator, BigQueryUpdateTableSchemaOperator, BigQueryCreateEmptyTableOperator
 from airflow import DAG
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH
@@ -65,11 +65,12 @@ with DAG(
         }
     )
 
-    update_table_schema = BigQueryUpdateTableSchemaOperator(
+    update_table_schema = BigQueryCreateEmptyTableOperator(
         task_id=f"update_table_schema_{table_id}",
         dataset_id=f"{dataset_id}",
         table_id=f"{table_id}",
-        schema_fields_updates= f"{{% include '{schema}' %}}"
+        schema_fields=f"{{% include '{schema}' %}}"
     )
+
 
 sensor_task >> insert_query_job >> update_table_schema
