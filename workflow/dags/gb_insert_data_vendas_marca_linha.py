@@ -2,9 +2,9 @@ from airflow.providers.google.cloud.operators.bigquery import BigQueryValueCheck
 from airflow import DAG
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH
-from sql.sensor.vendas_ano_mes import SENSOR_QUERIES
+from sql.sensor.vendas_marca_linha import SENSOR_QUERIES
 
-table_id = "vendas_ano_mes"
+table_id = "vendas_marca_linha"
 dataset_id = "refined"
 sql = f"/sql/load/{table_id}.sql"
 schema = f"/sql/schema/{table_id}.json"

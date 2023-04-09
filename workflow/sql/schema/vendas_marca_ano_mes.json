@@ -1,5 +1,9 @@
 [
   {
+    "description": "Nome da marca",
+    "name": "MARCA"
+  },
+  {
     "description": "Ano das vendas",
     "name": "ANO"
   },
