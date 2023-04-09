@@ -71,3 +71,5 @@ with DAG(
         table_id=f"{table_id}",
         schema_fields_updates= f"{{% include '{schema}' %}}"
     )
+
+sensor_task >> insert_query_job >> update_table_schema
