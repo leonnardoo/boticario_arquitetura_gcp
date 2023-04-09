@@ -30,7 +30,7 @@ with DAG(
     default_args=default_args,
     template_searchpath=ROOT_PATH,
     dagrun_timeout=timedelta(minutes=45),
-    tags=["Leonnardo Pereira", "insert", f"{dataset_id}"],
+    tags=["Leonnardo Pereira", "processing", f"{dataset_id}"],
 ) as dag:
 
     sensor_task =  BigQueryValueCheckOperator(
