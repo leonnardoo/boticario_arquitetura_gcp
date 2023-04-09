@@ -22,10 +22,10 @@ default_args = {
 #Rodando todo dia as 6h em UTC-3
 schedule_interval = "0 6 * * *"
 
-nome = "spotify_show"
+nome = "spotify_episodes"
 
 with DAG(
-    "gb_insert_api_data_podcast",
+    "gb_insert_api_data_podcast_episodes",
     start_date=datetime(2022, 4, 7, tzinfo=SAO_PAULO_TZ),
     catchup=False,
     schedule_interval=schedule_interval,
@@ -48,16 +48,20 @@ with DAG(
                 dst_file = client.bucket("trusted_data_boticario").blob(blob.name)
 
                 src_file = ndjson.loads(src_file)
-                json_src_file = src_file[0]['shows']['items']
+                json_src_file = src_file[0]['episodes']['items']
 
                 json_list = []
 
                 for item in range(len(json_src_file)):
                     json_list.append({
+                        'id': json_src_file[item]['id'],
                         'name': json_src_file[item]['name'],
                         'description': json_src_file[item]['description'],
-                        'id': json_src_file[item]['id'],
-                        'total_episodes': json_src_file[item]['total_episodes'],
+                        'release_date': json_src_file[item]['release_date'],
+                        'duration_ms': json_src_file[item]['duration_ms'],
+                        'languages': json_src_file[item]['languages'],
+                        'explicit': json_src_file[item]['explicit'],
+                        'type': json_src_file[item]['type'],
                         'datahora_carga': datahora_carga
                     })
         
@@ -66,12 +70,14 @@ with DAG(
 
 
     gcs_to_bq = GoogleCloudStorageToBigQueryOperator(
-        task_id="insert_api_data_podcast_task",
+        task_id="insert_api_data_podcast_episodes_task",
         bucket="trusted_data_boticario",
         source_objects=[f"api/{nome}*.json"],
-        destination_project_dataset_table="refined_api.spotify_podcast",
+        destination_project_dataset_table="refined_api.spotify_podcast_episodes",
         write_disposition='WRITE_TRUNCATE',
         create_disposition='CREATE_IF_NEEDED',
     )
+
+
 
 json_to_trusted_json() >> gcs_to_bq

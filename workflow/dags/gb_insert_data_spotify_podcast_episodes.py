@@ -2,10 +2,10 @@ from airflow.providers.google.cloud.operators.bigquery import BigQueryValueCheck
 from airflow import DAG
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH
-from sql.sensor.vendas_linha_ano_mes import SENSOR_QUERIES
+from sql.sensor.spotify_podcast_episodes_gb import SENSOR_QUERIES
 
-table_id = "vendas_linha_ano_mes"
-dataset_id = "refined"
+table_id = "spotify_podcast_episodes_gb"
+dataset_id = "refined_api"
 sql = f"/sql/load/{table_id}.sql"
 
 default_args = {
@@ -19,8 +19,8 @@ default_args = {
     "max_active_runs": 1
 }
 
-#Rodando todo dia as 6h em UTC-3
-schedule_interval = "0 6 * * *"
+#Rodando todo dia as 6:30h em UTC-3
+schedule_interval = "30 6 * * *"
 
 with DAG(
     f"gb_insert_data_{table_id}",

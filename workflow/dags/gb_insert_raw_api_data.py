@@ -84,7 +84,7 @@ with DAG(
 
         @task(task_id="search_podcast_episodes", default_args=default_args)
         def search_podcast_episodes(token, id):
-            url = f"https://api.spotify.com/v1/shows/{id}?market=BR"
+            url = f"https://api.spotify.com/v1/shows/{id}?market=BR&limit=100"
             headers = get_auth_header(token)
             response = requests.get(url, headers=headers)
             json_result = json.loads(response.content)
