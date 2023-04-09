@@ -29,7 +29,7 @@ with DAG(
     default_args=default_args,
     template_searchpath=ROOT_PATH,
     dagrun_timeout=timedelta(minutes=45),
-    tags=["Leonnardo Pereira", "Insert", "Trusted"],
+    tags=["Leonnardo Pereira", "insert", "trusted"],
 ) as dag:
     
     @task(task_id="excel_to_csv", default_args=default_args)
