@@ -69,7 +69,7 @@ with DAG(
         task_id=f"update_table_schema_{table_id}",
         dataset_id=f"{dataset_id}",
         table_id=f"{table_id}",
-        schema_fields= f"{{% include '{schema}' %}}"
+        schema_fields_updates= f"{{% include '{schema}' %}}"
     )
 
 
