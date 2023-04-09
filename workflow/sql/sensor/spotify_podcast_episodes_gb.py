@@ -1,4 +1,4 @@
-SPOTIFY_PODCAST_EPISODES = f"""
+SPOTIFY_PODCAST_EPISODES_GB = f"""
          SELECT COUNT(*) = 1 AS should_continue
                  FROM `singular-arcana-383119.refined_api.__TABLES__` 
                      WHERE row_count > 0 
@@ -7,5 +7,5 @@ SPOTIFY_PODCAST_EPISODES = f"""
 """
 
 SENSOR_QUERIES = {
-    "spotify_podcast_episodes" : SPOTIFY_PODCAST_EPISODES
+    "spotify_podcast_episodes_gb" : SPOTIFY_PODCAST_EPISODES_GB
 }
