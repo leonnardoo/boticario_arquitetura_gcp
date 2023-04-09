@@ -1,6 +1,6 @@
 from airflow.contrib.operators.gcs_to_bq import GoogleCloudStorageToBigQueryOperator
 from airflow import DAG
-from airflow.decorators import task
+from airflow.decorators import task, task_group
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH, SPOTIFY_CLIENT_ID_API, SPOTIFY_CLIENT_SECRET_API
 from google.cloud import storage
@@ -34,7 +34,8 @@ with DAG(
     dagrun_timeout=timedelta(minutes=45),
     tags=["Leonnardo Pereira", "insert", "raw", "api"],
 ) as dag:
-
+    
+    @task_group(task_id="api_to_storage",default_args=default_args)
     def api_to_storage():
         client_id = SPOTIFY_CLIENT_ID_API
         client_secret = SPOTIFY_CLIENT_SECRET_API
@@ -135,14 +136,4 @@ with DAG(
         main()
         return
 
-
-    #gcs_to_bq = GoogleCloudStorageToBigQueryOperator(
-    #    task_id="insert_data_task",
-    #    bucket="trusted_data_boticario",
-    #    source_objects=["files/Base_*.csv"],
-    #    destination_project_dataset_table="refined.base_venda_ano",
-    #    write_disposition='WRITE_TRUNCATE',
-    #    create_disposition='CREATE_IF_NEEDED',
-    #)
-
-api_to_storage() #>> gcs_to_bq
+api_to_storage()
