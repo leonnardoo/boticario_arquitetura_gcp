@@ -61,9 +61,9 @@ with DAG(
             "labels":{
                 "task_id": f"insert_query_job_{table_id}"[:60].lower(),
                 "dag_id": dag.dag_id[:60].lower()
-                }
             }
-        )
+        }
+    )
 
     update_table_schema = BigQueryUpdateTableSchemaOperator(
         task_id=f"update_table_schema_{table_id}",
