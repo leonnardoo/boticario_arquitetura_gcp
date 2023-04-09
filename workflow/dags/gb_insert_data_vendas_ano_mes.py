@@ -51,7 +51,7 @@ with DAG(
                 "query": f"{{% include '{sql}' %}}",
                 "destinationTable": {
                         "projectId": "singular-arcana-383119",
-                        "datasetId": "dataset_id",
+                        "datasetId": f"{dataset_id}",
                         "tableId": f"{table_id}"
                     },
                     "createDisposition": "CREATE_IF_NEEDED",
@@ -67,7 +67,7 @@ with DAG(
 
     update_table_schema = BigQueryUpdateTableSchemaOperator(
         task_id=f"update_table_schema_{table_id}",
-        dataset_id="dataset_id",
+        dataset_id=f"{dataset_id}",
         table_id=f"{table_id}",
         schema_fields_updates= f"{{% include '{schema}' %}}"
     )
