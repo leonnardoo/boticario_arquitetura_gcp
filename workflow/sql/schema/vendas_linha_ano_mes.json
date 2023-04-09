@@ -1,5 +1,9 @@
 [
   {
+    "description": "Nome da linha",
+    "name": "LINHA"
+  },
+  {
     "description": "Ano das vendas",
     "name": "ANO"
   },

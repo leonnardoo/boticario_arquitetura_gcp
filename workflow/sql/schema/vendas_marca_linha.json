@@ -1,11 +1,11 @@
 [
   {
-    "description": "Ano das vendas",
-    "name": "ANO"
+    "description": "Nome da marca",
+    "name": "MARCA"
   },
   {
-    "description": "Mês das vendas",
-    "name": "MES"
+    "description": "Nome da linha",
+    "name": "LINHA"
   },
   {
     "description": "Quantidade de vendas",
