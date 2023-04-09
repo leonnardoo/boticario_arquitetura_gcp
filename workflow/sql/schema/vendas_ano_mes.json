@@ -5,12 +5,12 @@
   {
     "description": "Ano das vendas",
     "name": "ANO",
-    "type": "DATE"
+    "type": "INTEGER"
   },
   {
     "description": "Mês das vendas",
     "name": "MES",
-    "type": "DATE"
+    "type": "INTEGER"
   },
   {
     "description": "Quantidade de vendas",
