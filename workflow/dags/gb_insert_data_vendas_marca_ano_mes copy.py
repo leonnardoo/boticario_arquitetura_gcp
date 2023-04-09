@@ -58,7 +58,7 @@ with DAG(
                 "useLegacySql": False,
             },
             "labels":{
-                "task_id": f"insert_query_job_{table_id}"[:60].lower(),
+                "task_id": f"{table_id}"[:60].lower(),
                 "dag_id": dag.dag_id[:60].lower()
             }
         }
