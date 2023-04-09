@@ -35,25 +35,26 @@ with DAG(
     @task(task_id="excel_to_csv", default_args=default_args)
     def excel_to_csv(**kwargs):
         client = storage.Client()
-        blobs = client.list_blobs("raw_data_boticario/files")
+        blobs = client.list_blobs("raw_data_boticario")
 
         datahora_carga = datetime.now(tz=SAO_PAULO_TZ).strftime("%Y-%m-%d %H:%M:%S")
 
         for blob in blobs:
-            src_file = client.bucket("raw_data_boticario/files").blob(blob.name).download_as_bytes()
-            dst_file = client.bucket("trusted_data_boticario/files").blob(blob.name.replace(".xlsx",".csv"))
+            if "files/Base_" in blob.name:
+                src_file = client.bucket("raw_data_boticario").blob(blob.name).download_as_bytes()
+                dst_file = client.bucket("trusted_data_boticario").blob(blob.name.replace(".xlsx",".csv"))
 
-            df_excel = pd.read_excel(src_file, index_col=0)
-            df_excel.insert(0, 'datahora_carga', datahora_carga)
-            df_csv = df_excel.to_csv()
+                df_excel = pd.read_excel(src_file, index_col=0)
+                df_excel.insert(0, 'datahora_carga', datahora_carga)
+                df_csv = df_excel.to_csv()
 
-            dst_file.upload_from_string(df_csv)
+                dst_file.upload_from_string(df_csv)
 
 
     gcs_to_bq = GoogleCloudStorageToBigQueryOperator(
         task_id="insert_data_task",
-        bucket="trusted_data_boticario/files",
-        source_objects=["Base_*.csv"],
+        bucket="trusted_data_boticario",
+        source_objects=["files/Base_*.csv"],
         destination_project_dataset_table="refined.base_venda_ano",
         write_disposition='WRITE_TRUNCATE',
         create_disposition='CREATE_IF_NEEDED',
