@@ -35,7 +35,7 @@ with DAG(
     tags=["Leonnardo Pereira", "insert", "raw", "api"],
 ) as dag:
     
-    @task_group(task_id="api_to_storage",default_args=default_args)
+    @task_group("api_to_storage", default_args=default_args)
     def api_to_storage():
         client_id = SPOTIFY_CLIENT_ID_API
         client_secret = SPOTIFY_CLIENT_SECRET_API
@@ -131,9 +131,8 @@ with DAG(
             result_episodes = search_podcast_episodes(token, id)
 
             insert_json_to_storage(results_podcast, term, type, bucket)
-            insert_json_episodes_to_storage(token, term, bucket)
+            insert_json_episodes_to_storage(result_episodes, term, bucket)
 
         main()
-        return
 
 api_to_storage()
