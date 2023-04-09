@@ -1,4 +1,4 @@
-from airflow.providers.google.cloud.operators.bigquery import BigQueryValueCheckOperator, BigQueryInsertJobOperator, BigQueryUpdateTableSchemaOperator
+from airflow.providers.google.cloud.operators.bigquery import BigQueryValueCheckOperator, BigQueryInsertJobOperator
 from airflow import DAG
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH
@@ -7,7 +7,6 @@ from sql.sensor.vendas_ano_mes import SENSOR_QUERIES
 table_id = "vendas_ano_mes"
 dataset_id = "refined"
 sql = f"/sql/load/{table_id}.sql"
-schema = f"/sql/schema/{table_id}.json"
 
 default_args = {
     "owner": "Engenharia de Dados",
@@ -65,12 +64,5 @@ with DAG(
         }
     )
 
-    update_table_schema = BigQueryUpdateTableSchemaOperator(
-        task_id=f"update_table_schema_{table_id}",
-        dataset_id=f"{dataset_id}",
-        table_id=f"{table_id}",
-        schema_fields_updates= f"{{% include '{schema}' %}}"
-    )
 
-
-sensor_task >> insert_query_job >> update_table_schema
+sensor_task >> insert_query_job
