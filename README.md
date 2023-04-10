@@ -94,12 +94,30 @@ Ao final temos o seguinte cenário:
     - Todos os códigos versionados e com esteira de deploy
 - Cloud Composer
     - Todas as DAGs orquestradas por hora UTC-3 (São Paulo)
+    ![image](https://user-images.githubusercontent.com/13987090/230823664-42f69001-9bb8-434b-a4cc-99cd9257c449.png)
+
 - BigQuery
     - Tabelas modeladas prontas para uso do negócio
-- Cloud Storage
-    - Camadas raw e trusted (Data Lake)
+    ![image](https://user-images.githubusercontent.com/13987090/230823843-e1a6d0ca-5da7-4ec8-98a4-10f3863e060a.png)
 
-Projeto finalizado.
+- Cloud Storage - raw e trusted (Data Lake)
+    - raw/files
+    
+    ![image](https://user-images.githubusercontent.com/13987090/230823993-8764b73f-312a-4952-894c-c6a610248cea.png)
+
+    
+    - raw/api
+    
+    ![image](https://user-images.githubusercontent.com/13987090/230823939-7afa7f3d-4d5e-4240-b66c-b8fdd47edab9.png)
+    
+    - trusted/files
+    
+    ![image](https://user-images.githubusercontent.com/13987090/230824186-73206384-74ae-4e5d-a192-37eafaad4946.png)
+
+    - trusted/api
+    
+    ![image](https://user-images.githubusercontent.com/13987090/230824217-b77aff43-212e-4297-8289-771530a12647.png)
+
 
 # Licence
 Licence MIT
