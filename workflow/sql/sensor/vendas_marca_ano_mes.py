@@ -3,7 +3,7 @@ VENDAS_MARCA_ANO_MES = f"""
                  FROM `singular-arcana-383119.refined.__TABLES__` 
                      WHERE row_count > 0 
                        AND CAST(TIMESTAMP_MILLIS(last_modified_time) AS DATE) = CURRENT_DATE('America/Sao_Paulo')
-                       AND table_id  = 'base_vendas_anos'
+                       AND table_id  = 'base_venda_ano'
 """
 
 SENSOR_QUERIES = {
