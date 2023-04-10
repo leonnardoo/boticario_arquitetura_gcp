@@ -22,14 +22,14 @@ default_args = {
 schedule_interval = "0 6 * * *"
 
 with DAG(
-    "gb_insert_data",
+    "gb_ingest_data",
     start_date=datetime(2022, 4, 7, tzinfo=SAO_PAULO_TZ),
     catchup=False,
     schedule_interval=schedule_interval,
     default_args=default_args,
     template_searchpath=ROOT_PATH,
     dagrun_timeout=timedelta(minutes=45),
-    tags=["Leonnardo Pereira", "insert", "trusted", "files"],
+    tags=["Leonnardo Pereira", "ingest", "trusted", "refined", "files"],
 ) as dag:
     
     @task(task_id="excel_to_csv", default_args=default_args)
@@ -52,7 +52,7 @@ with DAG(
 
 
     gcs_to_bq = GoogleCloudStorageToBigQueryOperator(
-        task_id="insert_data_task",
+        task_id="ingest_data_task",
         bucket="trusted_data_boticario",
         source_objects=["files/Base_*.csv"],
         destination_project_dataset_table="refined.base_venda_ano",

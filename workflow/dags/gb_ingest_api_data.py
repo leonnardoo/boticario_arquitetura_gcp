@@ -1,6 +1,5 @@
-from airflow.contrib.operators.gcs_to_bq import GoogleCloudStorageToBigQueryOperator
 from airflow import DAG
-from airflow.decorators import task, task_group
+from airflow.decorators import task
 from datetime import datetime, timedelta
 from config.utils import SAO_PAULO_TZ, ROOT_PATH, SPOTIFY_CLIENT_ID_API, SPOTIFY_CLIENT_SECRET_API
 from google.cloud import storage
@@ -25,14 +24,14 @@ default_args = {
 schedule_interval = "0 5 * * *"
 
 with DAG(
-    "gb_insert_raw_api_data",
+    "gb_ingest_api_data",
     start_date=datetime(2022, 4, 7, tzinfo=SAO_PAULO_TZ),
     catchup=False,
     schedule_interval=schedule_interval,
     default_args=default_args,
     template_searchpath=ROOT_PATH,
     dagrun_timeout=timedelta(minutes=45),
-    tags=["Leonnardo Pereira", "insert", "raw", "api"],
+    tags=["Leonnardo Pereira", "ingest", "raw", "api"],
 ) as dag:
     
     def api_to_storage():

@@ -32,7 +32,7 @@ with DAG(
     default_args=default_args,
     template_searchpath=ROOT_PATH,
     dagrun_timeout=timedelta(minutes=45),
-    tags=["Leonnardo Pereira", "insert", "trusted", "refined", "api"],
+    tags=["Leonnardo Pereira", "insert", "trusted", "refined_api", "api"],
 ) as dag:
     
     @task(task_id="json_to_trusted_json", default_args=default_args)

@@ -19,8 +19,8 @@ default_args = {
     "max_active_runs": 1
 }
 
-#Rodando todo dia as 6h em UTC-3
-schedule_interval = "0 6 * * *"
+#Rodando todo dia as 6:15h em UTC-3
+schedule_interval = "15 6 * * *"
 
 with DAG(
     f"gb_insert_data_{table_id}",
@@ -30,7 +30,7 @@ with DAG(
     default_args=default_args,
     template_searchpath=ROOT_PATH,
     dagrun_timeout=timedelta(minutes=45),
-    tags=["Leonnardo Pereira", "processing", f"{dataset_id}"],
+    tags=["Leonnardo Pereira", "analytics", f"{dataset_id}"],
 ) as dag:
 
     sensor_task =  BigQueryValueCheckOperator(
